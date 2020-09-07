@@ -15,6 +15,7 @@ db.init_app(app)
 Migrate(app, db)
 manager = Manager(app)
 manager.add_command("db", MigrateCommand)
+CORS(app)
 
 @app.route('/')
 def root():
@@ -54,7 +55,7 @@ def contacts(username = None):
         if not user:
             return jsonify({"msg": "User not found"}), 404
         user.username = username
-        user.todos = json.dumps(todos)
+        user.todos = json.dumps(todos) 
         user.update()
         return jsonify(user.serialize()), 200
     if request.method == 'DELETE':
