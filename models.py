@@ -2,7 +2,7 @@ import json
 from flask_sqlalchemy import SQLAlchemy
 db=SQLAlchemy()
 
-class Contact(db.Model):
+class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(120), nullable=False)
@@ -11,8 +11,8 @@ class Contact(db.Model):
     def serialize(self):
         return{
             "id": self.id,
-            "name": self.name,
-            "todos": json.loads(self.phone)
+            "username": self.username,
+            "todos": json.loads(self.todos)
         }
 
     def save(self):
