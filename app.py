@@ -20,13 +20,12 @@ manager.add_command("db", MigrateCommand)
 def root():
     return render_template('index.html')
 
-@app.route("/api/contacts", methods=['GET', 'POST'])
-@app.route("/api/contacts/<int:id>", methods=['GET', 'PUT', 'DELETE'])
-@app.route("/api/contacts/name/<name>", methods=['GET'])
-def contacts(id = None, name=None):
+@app.route("/api/todos/<int:username>", methods=['GET', 'POST', 'PUT', 'DELETE'])
+@app.route("/api/todos/all", methods=['GET'])
+def contacts(id = None, username = None):
     if request.method == 'GET':
-        if name is not None:
-            contact = Contact.query.filter(Contact.name.like(""+name+"%")).all()
+        if username is not None:
+            contact = Contact.query.filter(Contact.name.like(""+username+"%")).all()
             return jsonify(contact.serialize()), 200
         elif id is not None:
             contact = Contact.query.get(id)
